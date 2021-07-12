@@ -26,6 +26,7 @@ class PinsController extends AbstractController
      */
     public function show(Pin $pin): Response 
     {
+        dump($pin);
         return $this->render('pins/show.html.twig', compact('pin'));
     }
 

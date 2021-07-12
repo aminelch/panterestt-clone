@@ -35,20 +35,16 @@ class Pin
     private $description;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true, options={"default": "CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true, options={"default": "CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $updatedAt;
 
 
-    public function __construct()
-    {
-        $this->createdAt = new \DateTime('now');
-    }
 
     public function getId(): ?int
     {
