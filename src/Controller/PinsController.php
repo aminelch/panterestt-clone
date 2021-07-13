@@ -49,7 +49,7 @@ class PinsController extends AbstractController
          * on fait l'appel à la méthode createForm et non pas createFormBuilder 
          */
 
-        $form= $this->createForm(PinType::class,$pin);
+        $form = $this->createForm(PinType::class, $pin);
 
         $form->handleRequest($request);
 
@@ -66,15 +66,23 @@ class PinsController extends AbstractController
 
 
     /**
-     * @Route("/pins/{id<[0-9]+>}/edit", name="app_pins_edit", methods={"GET","POST"})
+     * @Route("/pins/{id<[0-9]+>}/edit", name="app_pins_edit", methods={"GET","PUT"})
      */
     public function edit(Pin $pin, Request $request, EntityManagerInterface $manager): Response
     {
-        
-        $form= $this->createForm(PinType::class,$pin);
-             $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()  ) {
+        /**
+         * Il faut impérativement passer method pour changer la méthode de l'action PinController::edit 
+         * @var array les options utilisées pour construire le formulaire | à passer dans la createForm
+         */
+        $options = [
+            "method" => "PUT"
+        ];
+
+        $form = $this->createForm(PinType::class, $pin,["method" => "PUT"]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $manager->flush($pin);
             return $this->redirectToRoute('app_home');
         }
@@ -82,7 +90,7 @@ class PinsController extends AbstractController
 
         return $this->render('pins/edit.html.twig', [
             'form' => $form->createView(),
-            'pin'=>$pin
+            'pin' => $pin
         ]);
     }
 }
