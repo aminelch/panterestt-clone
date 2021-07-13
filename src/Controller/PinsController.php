@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pin;
+use App\Form\PinType;
 use App\Repository\PinRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,15 +43,19 @@ class PinsController extends AbstractController
     {
         $pin = new Pin;
 
-        $form = $this->createFormBuilder($pin)
-            ->add("title", TextType::class)
-            ->add("description", TextareaType::class)
-            ->getForm();
+        /**
+         * Remplacer la création du fromulaire dans le controleur 
+         * par un Object de type App\Form\PinType 
+         * on fait l'appel à la méthode createForm et non pas createFormBuilder 
+         */
+
+        $form= $this->createForm(PinType::class,$pin);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($pin);
+            $manager->flush();
             $this->addFlash('success', "Pin added with success");
             return $this->redirectToRoute('app_home');
         }
@@ -65,14 +70,9 @@ class PinsController extends AbstractController
      */
     public function edit(Pin $pin, Request $request, EntityManagerInterface $manager): Response
     {
-        dump($pin); 
-
-        $form = $this->createFormBuilder($pin)
-            ->add("title", TextType::class)
-            ->add("description", TextareaType::class)
-            ->getForm();
-
-        $form->handleRequest($request);
+        
+        $form= $this->createForm(PinType::class,$pin);
+             $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()  ) {
             $manager->flush($pin);
