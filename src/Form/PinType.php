@@ -14,7 +14,9 @@ class PinType extends AbstractType
     {
         $builder
             ->add('title',TextType::class)
-            ->add('description',TextareaType::class)
+            ->add('description',TextareaType::class,[
+                'data'=>'description pin' //populer le champ description
+            ])
         ;
     }
 
