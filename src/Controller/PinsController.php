@@ -7,7 +7,6 @@ use App\Form\PinType;
 use App\Repository\PinRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Test\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,32 +63,20 @@ class PinsController extends AbstractController
 
 
     /**
-     * @Route("/pins/{id<[0-9]+>}/edit", name="app_pins_edit",  methods={"GET", "PUT"})
+     * @Route("/pins/{id<[0-9]+>}/edit", name="app_pins_edit",  methods={"PUT", "GET"})
      */
     public function edit(Pin $pin, Request $request, EntityManagerInterface $manager): Response
     {
 
-        /**
-         * Il faut impérativement passer method pour changer la méthode de l'action PinController::edit 
-         * @var array les options utilisées pour construire le formulaire | à passer dans la createForm
-         * 
-         */
-        //$options = ["method" => "PUT"];
+    $form= $this->createForm(PinType::class, $pin, [
+        'method'=> 'put'
+    ]);
 
-
-        /**
-         * @var FormInterface
-         */
-        $form = $this->createForm(PinType::class, $pin, ['method' => 'PUT']);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $manager->flush($pin);
-            return $this->redirectToRoute('app_home');
-        }
-
-
+    $form->handleRequest($request);
+    if($form->isSubmitted() && $form->isValid()){
+        $manager->flush();
+        return $this->redirectToRoute('app_home');
+    }
         return $this->render('pins/edit.html.twig', [
             'form' => $form->createView(),
             'pin' => $pin
@@ -97,7 +84,7 @@ class PinsController extends AbstractController
     }
 
     /**
-     * @Route("/pins/{id<[0-9]+>}/delete", name="app_pins_delete",  methods={"ALL"})
+     * @Route("/pins/{id<[0-9]+>}/delete", name="app_pins_delete",  methods={"DELETE"})
      */
     public function delete(Request $request, Pin $pin, EntityManagerInterface $manager): Response
     {

@@ -1,16 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title  %}Edit pin - {{pin.title}} {% endblock %}
+{% block title %}Edit pin #{{ pin.id }} - {{ pin.title }} {% endblock %}
 
 {% block body %}
 
-<div class="example-wrapper">
-
     <h2>Edit pin</h2>
+    <div class="container">
 
-    {{form_start(form) }}
-    {{form_rest(form)}}
-    <button type="submit">Edit!</button>
-    {{form_end(form) }}
-</div>
+        {{ form_start(form) }}
+        {{ form_rest(form) }}
+        <button type="submit">Edit!</button>
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        // window.onload = () => {
+        //
+        //
+        // }
+    </script>
 {% endblock %}
