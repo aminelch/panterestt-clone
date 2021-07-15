@@ -12,6 +12,7 @@
     <article>
         <h2><a href="{{path('app_pins_show',{id:pin.id})}}" title="{{pin.title}}">{{pin.title}}</a></h2>
         <p>{{pin.description |  u.truncate(10,'...',false)}}</p>
+        <p> updated: {{ pin.updatedAt| ago(locale ='en') }}</p>
     </article>
     {% endfor %}
 </div>
