@@ -43,12 +43,12 @@
 
 <body>
 {{ include('layouts/partials/_flash_messages.html.twig') }}
-<nav>
-    <li><a href="{{ path('app_home') }}">Home</a></li>
-    <li><a href="{{ path('app_pins_create') }}">Create</a></li>
-</nav>
-{% block body %}{% endblock %}
+{{ include('layouts/partials/nav.html.twig') }}
+<main role="main" class="container">
+    {% block body %}{% endblock %}
+</main>
 
+{{ include('layouts/partials/footer.html.twig') }}
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>

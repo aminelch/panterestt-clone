@@ -3,8 +3,12 @@
 {% block title %}Edit pin #{{ pin.id }} - {{ pin.title }} {% endblock %}
 
 {% block body %}
-    <h2>Edit pin</h2>
-    {{ include('pins/_form.html.twig', {btnText: 'Edit'}) }}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <h2>Edit pin</h2>
+        {{ include('pins/_form.html.twig', {btnText: 'Edit'}) }}
+    </div>
+</div>
 {% endblock %}
 
 {% block javascripts %}{% endblock %}
