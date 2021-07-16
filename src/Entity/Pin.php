@@ -2,14 +2,12 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\Timestampable as TraitsTimestampable;
 
-use Doctrine\ORM\Mapping\Table;
+
+use App\Entity\Traits\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PinRepository;
-use Doctrine\ORM\Mapping\PreUpdate;
-use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PinRepository::class)
@@ -19,22 +17,27 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 class Pin
 {
 
-    use  TraitsTimestampable;
+    use  Timestampable;
 
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3)
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
+     * @Assert\Length(min=10)
      */
     private $description;
 
