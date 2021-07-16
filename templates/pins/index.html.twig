@@ -4,16 +4,16 @@
 
 {% block body %}
 
-<div class="example-wrapper">
-    <h1>{{ pluralize(pins|length ,'Pin') }} </h1>
+    <div class="example-wrapper">
+        <h1>{{ pluralize(pins|length ,'Pin') }} </h1>
 
-    <a href="{{path("app_pins_create")}}" title="create a new pin">create a new pin</a>
-    {% for pin in pins %}
-    <article>
-        <h2><a href="{{path('app_pins_show',{id:pin.id})}}" title="{{pin.title}}">{{pin.title}}</a></h2>
-        <p>{{pin.description |  u.truncate(10,'...',false)}}</p>
-        <p> updated: {{ pin.updatedAt| ago(locale ='en') }}</p>
-    </article>
-    {% endfor %}
-</div>
+        <a href="{{ path("app_pins_create") }}" title="create a new pin">create a new pin</a>
+        {% for pin in pins %}
+            <article>
+                <h2><a href="{{ path('app_pins_show',{id:pin.id}) }}" title="{{ pin.title }}">{{ pin.title }}</a></h2>
+                <p>{{ pin.description |  u.truncate(10,'...',false) }}</p>
+                <p> updated: {{ pin.updatedAt| ago(locale ='en') }}</p>
+            </article>
+        {% endfor %}
+    </div>
 {% endblock %}
