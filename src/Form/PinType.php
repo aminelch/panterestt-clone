@@ -12,6 +12,8 @@ class PinType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+    
+
         $builder
             ->add('imageFile', VichImageType::class, [
                 'label'=>'Image (JPG or PNG file)',

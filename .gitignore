@@ -34,3 +34,7 @@ yarn-error.log
 public/uploads/
 ###< end Custom dirs ###
 
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###
