@@ -29,3 +29,8 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+###> Custom dirs ###
+public/uploads/
+###< end Custom dirs ###
+
