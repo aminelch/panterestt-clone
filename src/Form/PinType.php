@@ -22,7 +22,7 @@ class PinType extends AbstractType
                 'image_uri' => true,
                 'download_label'=>false,
                 'delete_label' => 'Remove Image',
-
+                
                 // 'asset_helper' => true,
             ])
             ->add('title')

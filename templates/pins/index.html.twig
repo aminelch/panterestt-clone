@@ -1,19 +1,44 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% block title %} {% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
 
-    <div class="example-wrapper">
-        <h1>{{ pluralize(pins|length ,'Pin') }} </h1>
 
-        <a href="{{ path("app_pins_create") }}" title="create a new pin">create a new pin</a>
-        {% for pin in pins %}
-            <article>
-                <h2><a href="{{ path('app_pins_show',{id:pin.id}) }}" title="{{ pin.title }}">{{ pin.title }}</a></h2>
-                <p>{{ pin.description |  u.truncate(10,'...',false) }}</p>
-                <p> updated: {{ pin.updatedAt| ago(locale ='en') }}</p>
-            </article>
-        {% endfor %}
+{# <a href="{{ path("app_pins_create") }}" title="create a new pin">create a new pin</a> #}
+
+{% if pins|length > 0 %}
+<h1 class="mb-4 text-muted text-center">{{ pluralize(pins|length ,'Pin') }}</h1>
+{% for row in pins|batch(3) %}
+<div class="row">
+    {% for pin in row %}
+    <div class="col-md-4">
+
+        <div class="card ml-2 mb-2" style="width: 18rem;">
+            {{ pin.imageName }}
+            <img src="{{ pin.imageName ? vich_uploader_asset(pin) ? asset('img/placeholder.jpg') | imagine_filter('squared_thumbnail_medium')}}" alt="{{ pin.title}}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title"> <a href="{{ path('app_pins_show',{id:pin.id}) }}" title="{{ pin.title }}">{{ pin.title }}</a></h5>
+                <p class="card-text">
+
+                    {{ pin.description |  u.truncate(10,'...',false) }}
+                    <p>updated:{{ pin.updatedAt| ago(locale ='en') }}</p>
+                </p>
+            </div>
+        </div>
     </div>
+    {% endfor %}
+</div>
+{% endfor %}
+
+
+
+
+
+
+{% else %}
+<p class="text-muted h1 mt-5 text-center">No pins yet! <a href="{{ path('app_pins_create') }}">Be the first</a> </p>
+{% endif %}
+
+
 {% endblock %}
