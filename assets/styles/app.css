@@ -38,3 +38,12 @@ body {
 .form-check-label {
     margin-top: 10px;
 }
+
+
+.pin img {
+    transition: transform 0.3s ease;
+}
+
+.pin img:hover {
+    transform: scale(1.075);
+}

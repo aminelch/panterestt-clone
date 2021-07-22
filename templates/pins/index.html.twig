@@ -10,22 +10,27 @@
 {% if pins|length > 0 %}
 <h1 class="mb-4 text-muted text-center">{{ pluralize(pins|length ,'Pin') }}</h1>
 {% for row in pins|batch(3) %}
-<div class="row">
+<div class="row mb-5">
     {% for pin in row %}
     <div class="col-md-4">
+        <article class="pin">
+            <div class="card ml-2 mb-2 bg-white rounded shadow">
+                <div class="mw-100 overflow-hidden">
+                    <a href="{{ path('app_pins_show',{id:pin.id}) }}">
+                        <img src="{{ ( pin.imageName ? vich_uploader_asset(pin) : asset('img/placeholder.jpg')) | imagine_filter('squared_thumbnail_medium')}}" alt="{{ pin.title}}" class="card-img-top w-100 rounded-top">
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"> <a href="{{ path('app_pins_show',{id:pin.id}) }}" title="{{ pin.title }}">{{ pin.title }}</a></h5>
+                    <p class="card-text">
 
-        <div class="card ml-2 mb-2" style="width: 18rem;">
-            {{ pin.imageName }}
-            <img src="{{ pin.imageName ? vich_uploader_asset(pin) ? asset('img/placeholder.jpg') | imagine_filter('squared_thumbnail_medium')}}" alt="{{ pin.title}}" class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title"> <a href="{{ path('app_pins_show',{id:pin.id}) }}" title="{{ pin.title }}">{{ pin.title }}</a></h5>
-                <p class="card-text">
-
-                    {{ pin.description |  u.truncate(10,'...',false) }}
-                    <p>updated:{{ pin.updatedAt| ago(locale ='en') }}</p>
-                </p>
+                        {{ pin.description |  u.truncate(10,'...',false) }}
+                        <p><small><time datetime="{{ pin.updatedAt| date('d-m-Y h:m:i') }}">updated:{{ pin.updatedAt| ago(locale ='en') }}</time>
+                            </small></p>
+                    </p>
+                </div>
             </div>
-        </div>
+        </article>
     </div>
     {% endfor %}
 </div>
