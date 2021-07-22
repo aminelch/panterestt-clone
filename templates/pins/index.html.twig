@@ -17,11 +17,11 @@
             <div class="card ml-2 mb-2 bg-white rounded shadow">
                 <div class="mw-100 overflow-hidden">
                     <a href="{{ path('app_pins_show',{id:pin.id}) }}">
-                        <img src="{{ ( pin.imageName ? vich_uploader_asset(pin) : asset('img/placeholder.jpg')) | imagine_filter('squared_thumbnail_medium')}}" alt="{{ pin.title}}" class="card-img-top w-100 rounded-top">
+                        <img src="{{ ( pin.imageName ? vich_uploader_asset(pin) : asset('img/placeholder.jpg')) | imagine_filter('squared_thumbnail_medium')}}" alt="{{ pin.title}}" class="card-img-top w-100">
                     </a>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title pl-3 pt-2"> <a href="{{ path('app_pins_show',{id:pin.id}) }}" class="text-decoration-none text-secondary" title="{{ pin.title }}">{{ pin.title }}</a></h5>
+                    <h1 class="card-title pl-3 pt-2"> <a href="{{ path('app_pins_show',{id:pin.id}) }}" class="text-decoration-none text-secondary" title="{{ pin.title }}">{{ pin.title }}</a></h1>
                     <p class="card-text pl-3 pb-3">
                         <small class="text-muted">
                             submitted by [OWNER]
