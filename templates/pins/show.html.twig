@@ -11,7 +11,7 @@
 			<article class="pin">
 				<div class="card ml-2 mb-2 bg-white rounded shadow">
 					<div class="mw-100 overflow-hidden">
-						<img src="{{ ( pin.imageName ? vich_uploader_asset(pin) : asset('img/placeholder.jpg')) | imagine_filter('squared_thumbnail_medium')}}" alt="{{ pin.title}}" class="card-img-top w-100 rounded-top">
+						<img src="{{ ( pin.imageName ? vich_uploader_asset(pin) : asset('img/placeholder.jpg')) | imagine_filter('squared_thumbnail_medium')}}" alt="{{ pin.title}}" class="card-img-top w-100">
 					</div>
 					<div class="card-body">
 						<h5 class="card-title pl-3 pt-2">{{ pin.title }}</h5>
