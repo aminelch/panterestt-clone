@@ -11,4 +11,13 @@
 </div>
 {% endblock %}
 
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+<script>
+    window.onload = () => {
+        const vichContainer = document.querySelector('.vich-image')
+        let vichPicture = vichContainer.querySelector('img:first-child')
+        vichPicture.style.height = "50%";
+        vichPicture.style.width = "50%";
+    }
+</script>
+{% endblock %}
