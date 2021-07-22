@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import "~bootstrap";
+
 html,
 body {
     font-family: 'Montserrat', sans-serif;
@@ -25,4 +26,15 @@ body {
 
 .alert-info {
     background-color: blue;
+}
+
+
+#main-nav {
+    -webkit-box-shadow: 0 5px 10px 1px rgba(0, 0, 0, .2);
+    box-shadow: 0 5px 10px 1px rgba(0, 0, 0, .2);
+
+}
+
+.form-check-label {
+    margin-top: 10px;
 }
