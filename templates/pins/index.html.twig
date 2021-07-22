@@ -24,7 +24,7 @@
                     <h1 class="h3 card-title pl-3 pt-2"> <a href="{{ path('app_pins_show',{id:pin.id}) }}" class="text-decoration-none text-secondary" title="{{ pin.title }}">{{ pin.title }}</a></h1>
                     <p class="card-text pl-3 pb-3">
                         <small class="text-muted">
-                            submitted by [OWNER]
+                            submitted by {{ pin.user.fullName}}
                         </small>
                         {# {{ pin.description |  u.truncate(10,'...',false) }} #}
                         {# <p><small><time datetime="{{ pin.updatedAt| date('d-m-Y h:m:i') }}">updated:{{ pin.updatedAt| ago(locale ='en') }}</time>
