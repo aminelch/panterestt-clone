@@ -6,7 +6,7 @@
 
 {% block body %}
 
-<div class="row">
+<div class="row mt-5">
     <div class="col-md-6 mx-auto">
         <article class="pin">
             <div class="card ml-2 mb-2 bg-white rounded shadow">
@@ -14,24 +14,26 @@
                     <img src="{{ ( pin.imageName ? vich_uploader_asset(pin) : asset('img/placeholder.jpg')) | imagine_filter('squared_thumbnail_medium')}}" alt="{{ pin.title}}" class="card-img-top w-100">
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title pl-3 pt-2">{{ pin.title }}</h5>
-                    <p class="card-text pl-3 pb-3">
-                        <small class="text-muted">
-                            submitted by {{ pin.user.fullName}}
-                            <time datetime="{{ pin.updatedAt| date('Y-m-d h:i:s') }}">{{ pin.updatedAt| ago() }}</time>
-                        </small>
-                    </p>
-                    <p class="pl-3 pb-3">
-                        {{ pin.description }}
-                    </p>
-                    <div class="pl-3 pb-3">
-                        <a class="btn btn-light" href="{{path('app_pins_edit',{id:pin.id} ) }}">Edit</a>
-                        <a class="btn btn-danger" id="js-delete-link" href="#">Delete</a>
-                        <form id="js-form-delete-pin" action="{{path('app_pins_delete',{id:pin.id} ) }}" method="POST" style="display:none;">
-                            <input type="text" name="csrf_token" value="{{csrf_token('pin_deletion_' ~ pin.id)}}">
-                            <input type="hidden" name="_method" value="DELETE">
-                        </form>
-
+                    <div class="p-3">
+                        <h5 class="card-title">{{ pin.title }}</h5>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                submitted by
+                                {{ pin.user.fullName}}
+                                <time datetime="{{ pin.updatedAt| date('Y-m-d h:i:s') }}">{{ pin.updatedAt| ago() }}</time>
+                            </small>
+                        </p>
+                        <p class="text-break">
+                            {{ pin.description }}
+                        </p>
+                        <div class=" ">
+                            <a class="btn btn-light" href="{{path('app_pins_edit',{id:pin.id} ) }}">Edit</a>
+                            <a class="btn btn-danger" id="js-delete-link" href="#">Delete</a>
+                            <form id="js-form-delete-pin" action="{{path('app_pins_delete',{id:pin.id} ) }}" method="POST" style="display:none;">
+                                <input type="text" name="csrf_token" value="{{csrf_token('pin_deletion_' ~ pin.id)}}">
+                                <input type="hidden" name="_method" value="DELETE">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -45,13 +47,20 @@
 <script>
     window.onload = () => {
 
+
+
         let link = document.querySelector('#js-delete-link')
         link.addEventListener('click', () => {
+
             const response = confirm('Are you sure ??')
             if (response) {
+
                 document.querySelector('#js-form-delete-pin').submit()
+
             }
+
         })
+
     }
 </script>
 {% endblock %}

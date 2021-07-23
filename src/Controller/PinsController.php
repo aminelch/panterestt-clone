@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Pin;
 use App\Form\PinType;
 use App\Repository\PinRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,10 +37,10 @@ class PinsController extends AbstractController
     /**
      * @Route("/pins/create", name="app_pins_create", methods={"GET","POST"})
      */
-    public function create(Request $request, EntityManagerInterface $manager): Response
+    public function create(Request $request,UserRepository $repository, EntityManagerInterface $manager): Response
     {
         $pin = new Pin;
-
+        $user = $repository->find(1); 
         /**
          * Remplacer la création du fromulaire dans le controleur 
          * par un Object de type App\Form\PinType 
@@ -51,6 +52,7 @@ class PinsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pin->setUser($user);
             $manager->persist($pin);
             $manager->flush();
             $this->addFlash('success', "Pin successfully added");
