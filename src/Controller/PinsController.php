@@ -40,7 +40,7 @@ class PinsController extends AbstractController
     public function create(Request $request,UserRepository $repository, EntityManagerInterface $manager): Response
     {
         $pin = new Pin;
-        $user = $repository->find(1); 
+        $user = $this->getUser();
         /**
          * Remplacer la création du fromulaire dans le controleur 
          * par un Object de type App\Form\PinType 
