@@ -32,6 +32,7 @@ yarn-error.log
 
 ###> Custom dirs ###
 public/uploads/
+SQL/
 ###< end Custom dirs ###
 
 
