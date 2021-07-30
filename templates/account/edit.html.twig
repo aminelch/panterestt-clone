@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title 'Edit profile' %}
+
+
+
+{% block body %}
+
+<div class="row mt-5 mb-5">
+    <div class="col-md-6 text-center mx-auto">
+        <h1 class="h3 mt-5 my-3 text-center">Update profile</h1>
+        {{ form_start(form)}}
+
+        <div class="row">
+            <div class="col">
+                {{ form_row(form.firstName) }}
+
+            </div>
+            <div class="col">
+                {{ form_row(form.lastName) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_row(form.email)}}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Apply changes </button>
+        {{ form_end(form)}}
+
+
+    </div>
+</div>
+
+
+{% endblock %}
+{% block javascripts %}
+{% endblock %}

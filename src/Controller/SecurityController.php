@@ -35,12 +35,6 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-     /**
-     * @Route("/account", name="app_user_account", methods="GET|POST")
-     */
-    public function account():Response
-    {
-        return $this->render('security/account.html.twig', ['user' => $this->getUser()]);
-    }
+     
 
 }
