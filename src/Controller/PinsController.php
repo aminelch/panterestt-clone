@@ -39,21 +39,13 @@ class PinsController extends AbstractController
      */
     public function create(Request $request,UserRepository $repository, EntityManagerInterface $manager): Response
     {
-        $pin = new Pin;
         $user = $this->getUser();
-        /**
-         * Remplacer la création du fromulaire dans le controleur 
-         * par un Object de type App\Form\PinType 
-         * on fait l'appel à la méthode createForm et non pas createFormBuilder 
-         */
-
-
         if($user->isVerified() ===false){
             $this->addFlash('danger','You must verify your account before posting new pins');
             return $this->redirectToRoute('app_user_account');
         }
 
-
+        $pin = new Pin;
         $form = $this->createForm(PinType::class, $pin);
 
         $form->handleRequest($request);

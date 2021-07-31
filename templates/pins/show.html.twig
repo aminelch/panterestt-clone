@@ -26,6 +26,8 @@
                         <p class="text-break">
                             {{ pin.description }}
                         </p>
+
+                    {% if app.user == pin.user %}
                         <div class=" ">
                             <a class="btn btn-light" href="{{path('app_pins_edit',{id:pin.id} ) }}">Edit</a>
                             <a class="btn btn-danger" id="js-delete-link" href="#">Delete</a>
@@ -34,6 +36,7 @@
                                 <input type="hidden" name="_method" value="DELETE">
                             </form>
                         </div>
+                    {% endif %}
                     </div>
                 </div>
             </div>
