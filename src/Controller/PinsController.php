@@ -47,6 +47,13 @@ class PinsController extends AbstractController
          * on fait l'appel à la méthode createForm et non pas createFormBuilder 
          */
 
+
+        if($user->isVerified() ===false){
+            $this->addFlash('danger','You must verify your account before posting new pins');
+            return $this->redirectToRoute('app_user_account');
+        }
+
+
         $form = $this->createForm(PinType::class, $pin);
 
         $form->handleRequest($request);
@@ -59,7 +66,7 @@ class PinsController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
         return $this->render('pins/create.html.twig', [
-            "form" => $form->createView()
+            "form" => $form->createView(),
         ]);
     }
 
@@ -71,7 +78,7 @@ class PinsController extends AbstractController
     {
 
     $form= $this->createForm(PinType::class, $pin, [
-        'method'=> 'put'
+        'method'=> 'put',
     ]);
 
     $form->handleRequest($request);
@@ -82,7 +89,7 @@ class PinsController extends AbstractController
     }
         return $this->render('pins/edit.html.twig', [
             'form' => $form->createView(),
-            'pin' => $pin
+            'pin' => $pin,
         ]);
     }
 
