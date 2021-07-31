@@ -50,20 +50,21 @@
         }
 
         /**
-         * @Route("/change-password", name="app_user_account_change_password", methods="GET|POST")
+         * @Route("/change-password", name="app_user_account_change_password", methods="GET|PATCH")
          */
         public function changePassword(Request $request, UserPasswordHasherInterface $hasher, EntityManagerInterface $em): Response
         {
             $user = $this->getUser();
             $form = $this->createForm(ChangePasswordFormType::class,null,
             ['current_password_is_required'=>true,
+            'method'=>'PATCH',
             ]);
 
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
 
-                $hash = $hasher->hashPassword($user, $form->get('plainPassword')->getData());
+                $hash = $hasher->hashPassword($user, $form->get('newPassword')->getData());
                 $user->setPassword($hash);
 
                 $em->persist($user);
