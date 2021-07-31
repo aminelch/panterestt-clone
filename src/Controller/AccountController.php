@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\AccountType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,7 @@ class AccountController extends AbstractController
     /**
      * @Route("/account/edit", name="app_user_account_edit", methods="GET|POST")
      */
-    public function edit(Request $request):Response
+    public function edit(Request $request, EntityManagerInterface $em):Response
     {
         $user= $this->getUser();
         $form = $this->createForm(AccountType::class,$user);
@@ -29,7 +30,12 @@ class AccountController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             dump($form->getData()); 
-            die('processing');
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('success', 'profil upadated successfully');
+            return $this->redirectToRoute('app_user_account'); 
+           // die('processing');
+
         }
 
         return $this->render('account/edit.html.twig', [
