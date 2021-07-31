@@ -12,7 +12,8 @@
             Account created ⏲<span class="badge badge-pill">{{ user.createdAt|ago}}</span><br>
             Verified account {{ user.getVerifiedInformations }}
         </p>
-        <a href="{{ path('app_user_account_edit') }}" class="">Edit</a> | <a href="#">Change password</a>
+        <a href="{{ path('app_user_account_edit') }}" class="">Edit</a> |
+        <a href="{{ path('app_user_account_password_edit') }}">Change password</a>
     </div>
 </div>
 
