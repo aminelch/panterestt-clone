@@ -28,14 +28,16 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/edit", name="app_user_account_edit", methods="GET|POST")
-     * @isGranted("IS_AUTHENTIFICATED_FULLY")
+     * @Route("/edit", name="app_user_account_edit", methods="GET|PATCH")
+     * @isGranted("ROLE_USER")
      */
     public function edit(Request $request, EntityManagerInterface $em): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
         $user = $this->getUser();
-        $form = $this->createForm(AccountType::class, $user);
+        $form = $this->createForm(AccountType::class, $user,[
+            'method'=>'PATCH'
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
