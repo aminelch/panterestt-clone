@@ -7,10 +7,12 @@ use App\Form\PinType;
 use App\Repository\PinRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PinsController extends AbstractController
 {
@@ -36,22 +38,19 @@ class PinsController extends AbstractController
 
     /**
      * @Route("/pins/create", name="app_pins_create", methods={"GET","POST"})
-     */
+     * @isGranted("PIN_CREATE")
+    **/
+     
     public function create(Request $request,UserRepository $repository, EntityManagerInterface $manager): Response
     {
-        $user = $this->getUser();
-        if($user->isVerified() ===false){
-            $this->addFlash('danger','You must verify your account before posting new pins');
-            return $this->redirectToRoute('app_user_account');
-        }
-
+  
         $pin = new Pin;
         $form = $this->createForm(PinType::class, $pin);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $pin->setUser($user);
+            $pin->setUser($this->getUser());
             $manager->persist($pin);
             $manager->flush();
             $this->addFlash('success', "Pin successfully added");
@@ -65,6 +64,7 @@ class PinsController extends AbstractController
 
     /**
      * @Route("/pins/{id<[0-9]+>}/edit", name="app_pins_edit",  methods={"PUT", "GET"})
+     * @Security("is_granted('PIN_MANAGE', pin )")
      */
     public function edit(Pin $pin, Request $request, EntityManagerInterface $manager): Response
     {
@@ -87,9 +87,13 @@ class PinsController extends AbstractController
 
     /**
      * @Route("/pins/{id<[0-9]+>}/delete", name="app_pins_delete",  methods={"DELETE"})
+     * 
      */
     public function delete(Request $request, Pin $pin, EntityManagerInterface $manager): Response
     {
+        
+        $this->denyAccessUnlessGranted('PIN_MANAGE',$pin);
+
         $csrf= $request->request->get('csrf_token'); 
 
         if ($this->isCsrfTokenValid('pin_deletion_' . $pin->getId(), $csrf) ) {

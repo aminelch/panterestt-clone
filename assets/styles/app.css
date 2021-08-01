@@ -22,7 +22,7 @@ body {
 }
 
 .alert-danger {
-    background-color: darkred;
+    background-color: #f44444;
 }
 
 .alert-info {
