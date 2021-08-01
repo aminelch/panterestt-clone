@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/account")
@@ -18,6 +19,7 @@ class AccountController extends AbstractController
 {
     /**
      * @Route("/", name="app_user_account", methods="GET")
+     * @isGranted("ROLE_USER")
      */
     public function account(): Response
     {
@@ -27,6 +29,7 @@ class AccountController extends AbstractController
 
     /**
      * @Route("/edit", name="app_user_account_edit", methods="GET|POST")
+     * @isGranted("IS_AUTHENTIFICATED_FULLY")
      */
     public function edit(Request $request, EntityManagerInterface $em): Response
     {
@@ -51,6 +54,7 @@ class AccountController extends AbstractController
 
     /**
      * @Route("/change-password", name="app_user_account_change_password", methods="GET|PATCH")
+     * @isGranted("ROLE_USER")
      */
     public function changePassword(Request $request, UserPasswordHasherInterface $hasher, EntityManagerInterface $em): Response
     {

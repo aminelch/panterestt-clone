@@ -13,7 +13,9 @@ class PinVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['PIN_MANAGE'])
+
+       
+        return $attribute === 'PIN_CREATE' || (in_array($attribute, ['PIN_MANAGE']))
             && $subject instanceof (Pin::class) ;
     }
 
@@ -29,8 +31,8 @@ class PinVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
  
-            // case 'PIN_CREATE':
-            //     return $user->isVerified() ; 
+            case 'PIN_CREATE':
+                return $user->isVerified() ; 
 
             case 'PIN_MANAGE':
                 return $user->isVerified() && $user == $subject->getUser(); 
