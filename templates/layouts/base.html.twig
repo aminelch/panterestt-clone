@@ -6,9 +6,10 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
     {# {{ encore_entry_link_tags('app') }} #}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/vendors-node_modules_bootstrap_dist_js_bootstrap_js-node_modules_core-js_modules_es_array_fin-0050b0.css') }}">
 
-    <link rel="stylesheet" href="/build/199.b69a23d4.css">
-    <link rel="stylesheet" href="/build/app.d8d984c3.css">
     {% endblock %}
 </head>
 
@@ -25,11 +26,11 @@
 
     {% block javascripts %}
     {# {{ encore_entry_script_tags('app') }} #}
-    <script src="/build/runtime.9439cedd.js" defer>
+    <script src="/build/runtime.js" defer>
     </script>
-    <script src="/build/199.f0c66a5c.js" defer>
+    <script src="/build/vendors-node_modules_bootstrap_dist_js_bootstrap_js-node_modules_core-js_modules_es_array_fin-0050b0.js" defer>
     </script>
-    <script src="/build/app.fe0f9f81.js" defer>
+    <script src="/build/app.js" defer>
     </script>
     {% endblock %}
 </body>
